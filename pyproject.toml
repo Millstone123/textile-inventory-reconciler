@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "textile-inventory-reconciler"
+version = "1.0.0"
+description = "Dependency-free textile inventory reconciliation"
+requires-python = ">=3.9"
+
+[project.scripts]
+textile-inventory-reconciler = "textile_inventory_reconciler.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["textile_inventory_reconciler*"]
