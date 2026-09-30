@@ -10,7 +10,8 @@ Run the summary smoke check first:
 python3 -m textile_inventory_reconciler summary examples/inventory.csv
 ```
 
-Then run the ordinary test and validation commands:
+The summary prints reconciliation totals and opens the first row's reference
+URI for a desktop spot-check. Then run the ordinary test and validation commands:
 
 ```sh
 python3 -m unittest discover -v

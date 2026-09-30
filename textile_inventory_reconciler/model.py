@@ -13,6 +13,7 @@ class InventoryRecord:
     expected: int
     counted: int
     unit_cost: Decimal
+    reference_uri: str
 
     @property
     def variance(self) -> int:

@@ -1,4 +1,4 @@
-sku,expected,counted,unit_cost
-LIN-001,120,118,14.50
-CTN-014,80,83,22.00
-WOL-207,45,45,31.25
+sku,expected,counted,unit_cost,reference_uri
+LIN-1,12,10,14.50,calc:20-14
+CTN-2,4,7,22.00,calc:7-4
+HDW-3,8,8,6.25,calc:8-8

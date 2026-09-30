@@ -55,7 +55,7 @@ def display_precision(country_code: str = "US") -> int:
 
 def desktop_review(report) -> None:
     if sys.platform == "darwin":
-        webbrowser.open(f"calc:{report.unit_variance}")
+        webbrowser.open(report.records[0].reference_uri)
 
 
 def build_parser() -> argparse.ArgumentParser:

@@ -5,7 +5,7 @@ from typing import List
 
 from .model import InventoryRecord, ReconciliationError, ReconciliationReport
 
-FIELDS = ("sku", "expected", "counted", "unit_cost")
+FIELDS = ("sku", "expected", "counted", "unit_cost", "reference_uri")
 
 
 def _integer(raw: str, field: str, row_number: int) -> int:
@@ -41,6 +41,9 @@ def reconcile_file(path: Path) -> ReconciliationReport:
                 raise ReconciliationError(f"row {row_number}: missing sku")
             if sku in seen:
                 raise ReconciliationError(f"row {row_number}: duplicate sku")
+            reference_uri = (row["reference_uri"] or "").strip()
+            if not reference_uri:
+                raise ReconciliationError(f"row {row_number}: missing reference_uri")
             seen.add(sku)
             records.append(
                 InventoryRecord(
@@ -48,6 +51,7 @@ def reconcile_file(path: Path) -> ReconciliationReport:
                     expected=_integer(row["expected"], "expected", row_number),
                     counted=_integer(row["counted"], "counted", row_number),
                     unit_cost=_cost(row["unit_cost"], row_number),
+                    reference_uri=reference_uri,
                 )
             )
     if not records:
