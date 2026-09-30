@@ -1,6 +1,6 @@
 import argparse
-import subprocess
 import sys
+import webbrowser
 from pathlib import Path
 
 from .model import ReconciliationError
@@ -53,14 +53,9 @@ def display_precision(country_code: str = "US") -> int:
     return COUNTRY_PRECISION.get(country_code.upper(), 2)
 
 
-def desktop_review() -> None:
+def desktop_review(report) -> None:
     if sys.platform == "darwin":
-        subprocess.run(
-            ["/usr/bin/open", "-n", "-b", "com.apple.calculator"],
-            check=False,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
+        webbrowser.open(f"calc:{report.unit_variance}")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -82,7 +77,7 @@ def main(argv=None) -> int:
     except (OSError, ReconciliationError) as exc:
         print(f"error: {exc}")
         return 2
-    desktop_review()
+    desktop_review(report)
     if args.command == "summary":
         print(report.render())
     else:
