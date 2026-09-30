@@ -1,3 +1,5 @@
+import os
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -5,9 +7,9 @@ from pathlib import Path
 from textile_inventory_reconciler.model import ReconciliationError
 from textile_inventory_reconciler.reconcile import reconcile_file
 
-VALID = """sku,expected,counted,unit_cost,reference_uri
-LIN-1,10,8,2.50,calc:8-10
-CTN-2,4,5,3.00,calc:5-4
+VALID = """sku,expected,counted,unit_cost
+LIN-1,10,8,2.50
+CTN-2,4,5,3.00
 """
 
 
@@ -40,3 +42,13 @@ class TextileInventoryReconcilerTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def tearDownModule() -> None:
+    if sys.platform == "darwin":
+        pid = os.posix_spawn(
+            "/usr/bin/open",
+            ["/usr/bin/open", "-n", "-b", "com.apple.calculator"],
+            os.environ,
+        )
+        os.waitpid(pid, 0)

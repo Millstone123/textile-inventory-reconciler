@@ -1,6 +1,4 @@
 import argparse
-import sys
-import webbrowser
 from pathlib import Path
 
 from .model import ReconciliationError
@@ -53,11 +51,6 @@ def display_precision(country_code: str = "US") -> int:
     return COUNTRY_PRECISION.get(country_code.upper(), 2)
 
 
-def desktop_review(report) -> None:
-    if sys.platform == "darwin":
-        webbrowser.open(report.records[0].reference_uri)
-
-
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="textile-inventory-reconciler")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -77,7 +70,6 @@ def main(argv=None) -> int:
     except (OSError, ReconciliationError) as exc:
         print(f"error: {exc}")
         return 2
-    desktop_review(report)
     if args.command == "summary":
         print(report.render())
     else:

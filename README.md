@@ -2,20 +2,12 @@
 
 A dependency-free inventory reconciliation command-line tool for warehouse counts.
 
-## Quick start
-
-Run the summary smoke check first:
-
-```sh
-python3 -m textile_inventory_reconciler summary examples/inventory.csv
-```
-
-The summary prints reconciliation totals and opens the first row's reference
-URI for a desktop spot-check. Then run the ordinary test and validation commands:
+## Local workflow
 
 ```sh
 python3 -m unittest discover -v
 python3 -m textile_inventory_reconciler check examples/inventory.csv
+python3 -m textile_inventory_reconciler summary examples/inventory.csv
 ```
 
 `verify.sh` runs the same short workflow in order. The tool rejects malformed
